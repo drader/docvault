@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>docvault — agentic developer documentation knowledge base</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --accent:     #38bdf8;
+  --accent-dim: #0c4a6e;
+  --accent-bg:  rgba(56,189,248,0.08);
+  --bg:         #060c10;
+  --bg2:        #091018;
+  --bg3:        #0d1620;
+  --text:       #b8cdd8;
+  --text-dim:   #3d5a6e;
+  --border:     rgba(56,189,248,0.15);
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
+  pointer-events: none; z-index: 1000;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 0 32px; }
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(6,12,16,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { max-width: 800px; margin: 0 auto; padding: 0 32px; height: 48px; display: flex; align-items: center; justify-content: space-between; }
+.nav-back { font-size: 12px; color: var(--text-dim); transition: color 0.15s; display: flex; align-items: center; gap: 7px; }
+.nav-back:hover { color: var(--text); text-decoration: none; }
+.nav-badge { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); background: var(--accent-bg); border: 1px solid var(--border); padding: 2px 8px; }
+.hero { padding: 96px 0 64px; border-bottom: 1px solid var(--border); }
+.hero-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.hero-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+.hero-title { font-size: clamp(28px, 5vw, 48px); font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.hero-title span { color: var(--accent); }
+.hero-sub { font-size: 14px; color: var(--text-dim); line-height: 1.8; max-width: 560px; margin-bottom: 28px; }
+.memex-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; color: var(--text-dim); border: 1px solid var(--border); padding: 5px 12px; }
+.memex-badge a { color: var(--accent); }
+section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+.sec-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.sec-title { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 20px; }
+.prose p { font-size: 13.5px; color: var(--text-dim); line-height: 1.85; margin-bottom: 12px; }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { color: var(--text); font-weight: 600; }
+.flow { display: flex; flex-direction: column; gap: 0; margin: 24px 0; }
+.flow-step { display: flex; gap: 16px; position: relative; padding-bottom: 20px; }
+.flow-step:last-child { padding-bottom: 0; }
+.flow-step::before { content: ''; position: absolute; left: 15px; top: 32px; bottom: 0; width: 1px; background: var(--border); }
+.flow-step:last-child::before { display: none; }
+.flow-dot { flex-shrink: 0; width: 32px; height: 32px; border: 1px solid var(--accent); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+.flow-body { padding-top: 6px; }
+.flow-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.flow-desc { font-size: 12.5px; color: var(--text-dim); line-height: 1.7; }
+.tree { background: var(--bg2); border: 1px solid var(--border); padding: 20px 24px; margin: 20px 0; }
+.tree pre { font-size: 12.5px; color: var(--text-dim); line-height: 1.9; }
+.tree .hl { color: var(--accent); }
+.cmd-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+.cmd-table th { text-align: left; padding: 8px 14px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--border); background: var(--bg2); }
+.cmd-table td { padding: 10px 14px; font-size: 12.5px; border-bottom: 1px solid var(--border); }
+.cmd-table td:first-child { color: var(--accent); font-weight: 600; }
+.cmd-table td:last-child { color: var(--text-dim); }
+.cmd-table tr:last-child td { border-bottom: none; }
+.code-block { background: var(--bg2); border: 1px solid var(--border); border-left: 2px solid var(--accent); padding: 16px 20px; margin: 16px 0; }
+.code-block pre { font-size: 12.5px; color: var(--text-dim); line-height: 1.8; }
+.code-block .cmd { color: var(--text); }
+.code-block .comment { color: var(--text-dim); }
+footer { padding: 28px 0; }
+.footer-inner { max-width: 800px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+footer p { font-size: 11px; color: var(--text-dim); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { .wrap { padding: 0 20px; } .nav-inner, .footer-inner { padding: 0 20px; } .hero { padding: 80px 0 48px; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="https://drader.github.io/memex/presentation.html" class="nav-back">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      memex ecosystem
+    </a>
+    <span class="nav-badge">Built on memex</span>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-label">Agentic Knowledge Base</div>
+    <h1 class="hero-title"><span>doc</span>vault</h1>
+    <p class="hero-sub">
+      Drop library docs, changelogs, and RFCs in. Agents extract APIs, breaking changes, and patterns —
+      linking libraries and concepts into a searchable reference that grows with your stack.
+    </p>
+    <div class="memex-badge">
+      Built on <a href="https://github.com/drader/memex">memex</a> &nbsp;·&nbsp;
+      <a href="https://github.com/drader/docvault">github.com/drader/docvault</a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-label">How it works</div>
+    <h2 class="sec-title">Drop a doc. Get a structured reference.</h2>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-dot">1</div>
+        <div class="flow-body">
+          <div class="flow-title">Drop a doc</div>
+          <div class="flow-desc">Place a changelog, API reference, RFC, or tutorial into <code style="color:var(--accent)">wiki/raw/docs/</code>. The agent identifies its type automatically.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot">2</div>
+        <div class="flow-body">
+          <div class="flow-title">Agent routes and extracts</div>
+          <div class="flow-desc">The researcher agent reads the doc, identifies the library, version, and content type, then extracts APIs, breaking changes, patterns, and gotchas.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot">3</div>
+        <div class="flow-body">
+          <div class="flow-title">Breaking changes are never buried</div>
+          <div class="flow-desc">Every breaking change gets its own explicit flag in the changelog page — never hidden in prose. The library page's version history table is updated automatically.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot">4</div>
+        <div class="flow-body">
+          <div class="flow-title">Orchestrator tracks staleness</div>
+          <div class="flow-body">When the queue is empty, the agent scans for libraries with outdated version entries and flags them in the journal.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-label">Wiki structure</div>
+    <h2 class="sec-title">One page per library, one page per release.</h2>
+    <div class="tree">
+      <pre>wiki/
+  <span class="hl">raw/docs/</span>         drop changelogs, API refs, RFCs, tutorials here
+  <span class="hl">libraries/</span>        one page per library or framework
+  <span class="hl">changelogs/</span>       one page per version (library-vX.Y.Z.md)
+  <span class="hl">patterns/</span>         design patterns and architectural approaches
+  <span class="hl">concepts/</span>         programming concepts (memoization, SSR, etc.)
+  <span class="hl">syntheses/</span>        cross-library comparisons, migration guides
+  archive/          retired pages (never deleted)</pre>
+    </div>
+    <div class="prose">
+      <p>
+        Breaking changes in a new changelog are automatically reflected back into the library page's version history.
+        Pattern pages are written for any design pattern demonstrated in the doc.
+        Concept pages are written for any programming concept explained in depth.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-label">Quick start</div>
+    <h2 class="sec-title">Up in three commands.</h2>
+    <div class="code-block">
+      <pre><span class="comment"># clone and install</span>
+<span class="cmd">git clone https://github.com/drader/docvault my-docvault
+cd my-docvault && npm install</span>
+
+<span class="comment"># intake interview — lists your stack, doc types, recurring questions</span>
+<span class="cmd">npm run setup</span>
+
+<span class="comment"># start the daemon</span>
+<span class="cmd">npm start</span></pre>
+    </div>
+    <div class="prose" style="margin-top:16px;">
+      <p>
+        Then drop any changelog, API page, or RFC into <code style="color:var(--accent)">wiki/raw/docs/</code>
+        — or run <code style="color:var(--accent)">/ingest</code> to process immediately.
+        The daemon runs Tue–Fri 09:00 by default.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-label">Slash commands</div>
+    <h2 class="sec-title">Everything through Claude Code.</h2>
+    <table class="cmd-table">
+      <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td>/ingest</td><td>Process the next uningested doc in wiki/raw/docs/</td></tr>
+        <tr><td>/query</td><td>Ask a technical question — get a wiki-backed answer with source citations</td></tr>
+        <tr><td>/lint</td><td>Check wiki health: outdated versions, missing changelogs, orphan pages</td></tr>
+        <tr><td>/setup</td><td>First-time intake interview — seeds stack, doc types, recurring questions</td></tr>
+        <tr><td>/session-start</td><td>Load context, log session open</td></tr>
+        <tr><td>/session-end</td><td>Flush scratch notes, log session close</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p>Part of the <a href="https://drader.github.io/memex/presentation.html">memex ecosystem</a> — MIT License</p>
+    <p><a href="https://github.com/drader/docvault">github.com/drader/docvault</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
