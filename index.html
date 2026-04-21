@@ -179,6 +179,12 @@ footer a { color: var(--accent); }
   <div class="wrap">
     <div class="sec-label">Quick start</div>
     <h2 class="sec-title">Up in three commands.</h2>
+    <div class="prose" style="margin-bottom:16px;">
+      <p><strong>Prerequisites:</strong> Node.js ≥ 20 &nbsp;·&nbsp;
+        <code style="color:var(--accent)">npm install -g @anthropic-ai/claude-code</code> &nbsp;·&nbsp;
+        <code style="color:var(--accent)">npm install -g obsidian-hybrid-search</code>
+      </p>
+    </div>
     <div class="code-block">
       <pre><span class="comment"># clone and install</span>
 <span class="cmd">git clone https://github.com/drader/docvault my-docvault
@@ -187,8 +193,10 @@ cd my-docvault && npm install</span>
 <span class="comment"># intake interview — lists your stack, doc types, recurring questions</span>
 <span class="cmd">npm run setup</span>
 
-<span class="comment"># start the daemon</span>
-<span class="cmd">npm start</span></pre>
+<span class="comment"># start the daemon (pick one)</span>
+<span class="cmd">npm start</span>               <span class="comment"># foreground</span>
+<span class="cmd">npm run dev</span>             <span class="comment"># watch mode</span>
+<span class="cmd">npm run install-daemon</span>  <span class="comment"># background (launchd / systemd)</span></pre>
     </div>
     <div class="prose" style="margin-top:16px;">
       <p>
