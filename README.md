@@ -1,21 +1,19 @@
 # docvault
 
-An agentic developer documentation knowledge base. Drop library docs, changelogs, and RFCs in. Agents extract APIs, breaking changes, and patterns — linking libraries and concepts into a searchable reference that grows with your stack.
+**Agentic developer documentation knowledge base — built on [memex](https://github.com/drader/memex)**
 
-Built on [memex](https://github.com/drader/memex).
+Drop library docs, changelogs, and RFCs in. Agents extract APIs, breaking changes, and patterns — linking libraries and concepts into a searchable reference that grows with your stack.
+
+→ [View presentation](https://drader.github.io/docvault/presentation.html)
 
 ---
 
-## What it does
+## How it works
 
-You drop a doc into `wiki/raw/docs/`. The researcher agent — running on a schedule in the background — reads it, identifies its type, and produces:
-
-- A **library page** (`wiki/libraries/`) with key APIs, patterns, anti-patterns, gotchas, and a version history table
-- A **changelog page** (`wiki/changelogs/`) for each release — breaking changes are always flagged explicitly, never buried in prose
-- **Pattern pages** (`wiki/patterns/`) for any design pattern demonstrated in the doc
-- **Concept pages** (`wiki/concepts/`) for any programming concept explained in depth
-
-Breaking changes in a new changelog are automatically reflected back into the library page's version history. When the queue is empty, the agent scans for libraries with outdated version entries and flags them in the journal.
+1. **Drop a doc** — Place a changelog, API reference, RFC, or tutorial into `wiki/raw/docs/`. The agent identifies its type automatically.
+2. **Agent routes and extracts** — The researcher agent reads the doc, identifies the library, version, and content type, then extracts APIs, breaking changes, patterns, and gotchas.
+3. **Breaking changes are never buried** — Every breaking change gets its own explicit flag in the changelog page — never hidden in prose. The library page's version history table is updated automatically.
+4. **Orchestrator tracks staleness** — When the queue is empty, the agent scans for libraries with outdated version entries and flags them in the journal.
 
 ---
 
