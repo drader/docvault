@@ -4,7 +4,7 @@
 
 Drop library docs, changelogs, and RFCs in. Agents extract APIs, breaking changes, and patterns — linking libraries and concepts into a searchable reference that grows with your stack.
 
-→ [View presentation](https://drader.github.io/docvault/presentation.html)
+→ [View presentation](https://drader.github.io/docvault/)
 
 ---
 
